@@ -1,69 +1,96 @@
-@import '../../../node_modules/sanitize.css/system-ui';
-@import '../../../node_modules/sanitize.css/ui-monospace';
 @import '../../../node_modules/sanitize.css/sanitize';
-@import '../../../node_modules/sanitize.css/typography';
 @import '../../../node_modules/sanitize.css/assets';
 @import '../../../node_modules/sanitize.css/forms';
 @import '../../../node_modules/sanitize.css/reduce-motion';
 
 * {
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  background-color: #dadad0;
+	padding: 0;
+	margin: 0;
 }
 
 body {
-  max-width: 32rem;
-  max-width: 64ch;
-  min-height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  color: #4a4a40;
-  font-size: 100%;
-  line-height: 1.5;
+	min-height: 100vh;
+	font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans',
+		source-sans-pro, sans-serif;
+	font-size: 100%;
 }
 
-.container {
-  padding: 1rem;
-  padding: clamp(1rem, 10vw, 4rem);
-  background-color: #fff;
-  border-bottom: 1px solid #dadad0;
+//
+
+h1 {
+	font-size: 1.5rem;
+}
+
+h2 {
+	font-size: 1.25rem;
+}
+
+h3 {
+	font-size: 1.125rem;
+}
+
+h4 {
+	font-size: 1rem;
+}
+
+h5,
+h6 {
+	font-size: 0.75rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+//
+
+.flow,
+.stack {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-start;
+
+	&-spaced {
+		justify-content: space-between;
+	}
+}
+
+.flow {
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.stack {
+	flex-direction: column;
+}
+
+//
+
+.header,
+.footer {
+	padding: 1rem;
+	background-color: #eee;
+
+	* {
+		max-width: 32rem;
+		max-width: 64ch;
+		margin: 0 auto;
+	}
 }
 
 .header {
-  &-title,
-  &-description {
-    font-size: 1.25rem;
-    font-weight: normal;
-  }
-
-  &-title {
-    margin: 0 0 1rem;
-  }
-
-  &-description {
-    color: #6a6a60;
-    text-transform: lowercase;
-  }
-}
-
-.content {
-  flex: 1;
+	border-bottom: 1px solid #ccc;
 }
 
 .footer {
-  border-bottom: none;
-  color: #6a6a60;
-  font-size: .875rem;
-  font-style: italic;
+	border-top: 1px solid #ccc;
 }
 
-@media screen and (max-width: 512px) {
-  .footer {
-    background-color: transparent;
-  }
+//
+
+.main {
+	max-width: 32rem;
+	max-width: 64ch;
+	padding: 0 1rem;
+	margin: 0 auto;
+	flex: 1;
 }

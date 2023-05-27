@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  {% include './partials/head.njk' %}
-</head>
-<body>
-  {% include './partials/header.njk' %}
-  <main class="container content" role="main">{{ content | safe }}</main>
-  {% include './partials/footer.njk' %}
-</body>
+	<head>
+		{% include './partials/head.njk' %}
+	</head>
+	<body class="stack">
+		{% include './partials/header.njk' %}
+		<main class="main" role="stack main">{{ content | safe }}</main>
+		{% include './partials/footer.njk' %}
+	</body>
 </html>

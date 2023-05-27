@@ -1,56 +1,72 @@
 const path = require('path');
 
-const production = (process.env.ELEVENTY_MODE || 'development') === 'production';
-
-const browserOptions = {
-  files: 'build/**/*',
-  port: 4567,
-  ui: false
+const environment = {
+	production: (process.env.ELEVENTY_MODE || 'development') === 'production',
+	timestamp: Date.now(),
 };
 
-const htmlOptions = {
-  collapseWhitespace: true,
-  decodeEntities: true,
-  removeComments: true,
+const options = {
+	browser: {
+		port: 4567,
+	},
+
+	html: {
+		collapseWhitespace: true,
+		decodeEntities: true,
+		removeComments: true,
+	},
+
+	sass: {
+		domainName: 'https://stuff.oscarpalmer.se',
+		outDir: path.normalize(path.join(__dirname, './build')),
+		outFileName: environment.production
+			? `styles.${environment.timestamp}`
+			: 'styles',
+		outPath: '/assets/stylesheets/',
+		outputStyle: environment.production ? 'compressed' : 'expanded',
+		sassIndexFile: 'styles.scss',
+		sassLocation: path.normalize(
+			path.join(__dirname, './source/assets/stylesheets/'),
+		),
+	},
 };
 
-const sassOptions = {
-  domainName: 'https://stuff.oscarpalmer.se',
-  outDir: path.normalize(path.join(__dirname, './build')),
-  outFileName: 'styles',
-  outPath: '/_/',
-  outputStyle: production ? 'compressed' : 'expanded',
-  sassIndexFile: 'styles.scss',
-  sassLocation: path.normalize(path.join(__dirname, './source/assets/stylesheets/')),
-};
+module.exports = config => {
+	config.addGlobalData('production', environment.production);
 
-module.exports = (config) => {
-  config.addGlobalData('production', production);
-  config.addGlobalData('timestamp', Date.now());
+	if (environment.production) {
+		const html = require('html-minifier');
 
-  if (production) {
-    const html = require('html-minifier');
+		config.addTransform('html', (content, path) => {
+			return path.endsWith('.html')
+				? html.minify(
+						content.replace(
+							'styles.css',
+							`styles.${environment.timestamp}.css`,
+						),
+						options.html,
+				  )
+				: content;
+		});
+	}
 
-    config.addTransform('html', (content, path) => {
-      return path.endsWith('.html')
-        ? html.minify(content, htmlOptions)
-        : content;
-    });
-  }
+	config.addPassthroughCopy({
+		'source/.htaccess': '.htaccess',
+	});
 
-  config.addPlugin(require('eleventy-plugin-dart-sass'), sassOptions);
+	config.addPlugin(require('eleventy-plugin-dart-sass'), options.sass);
 
-  config.setBrowserSyncConfig(browserOptions);
+	config.setServerOptions(options.browser);
 
-  return {
-    dir: {
-      data: '../data',
-      input: 'source/pages',
-      layouts: '../layouts',
-      output: 'build'
-    },
-    htmlTemplateEngine: 'njk',
-    markdownTemplateEngine: 'njk',
-    passthroughFileCopy: true,
-  };
+	return {
+		dir: {
+			data: '../data',
+			input: 'source/pages',
+			layouts: '../layouts',
+			output: 'build',
+		},
+		htmlTemplateEngine: 'njk',
+		markdownTemplateEngine: 'njk',
+		passthroughFileCopy: true,
+	};
 };
