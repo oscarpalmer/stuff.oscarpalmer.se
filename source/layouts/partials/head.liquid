@@ -1,0 +1,36 @@
+<base href="/">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ meta.title }}</title>
+
+<link rel="stylesheet" href="assets/stylesheets/styles.css">
+
+<meta name="author" content="{{ meta.author }}">
+<meta name="description" content="{{ meta.description }}">
+
+<link rel="canonical" href="{{ canonicalUrl }}{{ page.url }}">
+
+<meta name="generator" content="Eleventy v{{ version }}">
+
+{% if error %}
+  <meta name="robots" content="noindex, nofollow">
+{% else %}
+  <meta name="robots" content="index, follow">
+{% endif %}
+
+{% unless error %}
+  <meta property="og:author" content="{{ meta.author }}">
+  <meta property="og:description" content="{{ meta.description }}">
+  <meta property="og:image" content="">
+  <meta property="og:site_name" content="{{ meta.author }}">
+  <meta property="og:title" content="{{ meta.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ canonicalUrl }}{{ page.url }}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@ohpalmer">
+  <meta name="twitter:description" content="{{ meta.description }}">
+  <meta name="twitter:site" content="@ohpalmer">
+{% endunless %}

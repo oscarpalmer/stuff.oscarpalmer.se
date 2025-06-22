@@ -1,96 +1,28 @@
-@import '../../../node_modules/sanitize.css/sanitize';
-@import '../../../node_modules/sanitize.css/assets';
-@import '../../../node_modules/sanitize.css/forms';
-@import '../../../node_modules/sanitize.css/reduce-motion';
-
-* {
-	padding: 0;
-	margin: 0;
-}
+@use '../../../node_modules/@oscarpalmer/oui/src/css/reset.scss';
+@use '../../../node_modules/@oscarpalmer/oui/src/css/flex.scss';
 
 body {
-	min-height: 100vh;
-	font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans',
-		source-sans-pro, sans-serif;
-	font-size: 100%;
-}
-
-//
-
-h1 {
-	font-size: 1.5rem;
-}
-
-h2 {
-	font-size: 1.25rem;
-}
-
-h3 {
-	font-size: 1.125rem;
-}
-
-h4 {
-	font-size: 1rem;
-}
-
-h5,
-h6 {
-	font-size: 0.75rem;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-}
-
-//
-
-.flow,
-.stack {
 	display: flex;
-	gap: 1rem;
-	justify-content: flex-start;
-
-	&-spaced {
-		justify-content: space-between;
-	}
+	flex-flow: column nowrap;
+	background-color: #fdfdfd;
 }
-
-.flow {
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-}
-
-.stack {
-	flex-direction: column;
-}
-
-//
 
 .header,
-.footer {
+.footer,
+.main {
 	padding: 1rem;
-	background-color: #eee;
-
-	* {
-		max-width: 32rem;
-		max-width: 64ch;
-		margin: 0 auto;
-	}
 }
 
 .header {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ddd;
 }
 
 .footer {
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #ddd;
+	font-size: .875rem;
+	font-style: italic;
 }
 
-//
-
 .main {
-	max-width: 32rem;
-	max-width: 64ch;
-	padding: 0 1rem;
-	margin: 0 auto;
-	flex: 1;
+	background-color: #f7f7f7;
 }

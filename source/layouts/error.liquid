@@ -1,0 +1,19 @@
+{% assign error = true %}
+{% assign slug = 'error' %}
+{% assign title = '404' %}
+<!doctype html>
+<html dir="ltr" lang="sv">
+  {% include 'head' %}
+  <body>
+    <main class="page__error" role="main">
+      <article>
+        <header>
+          <h2>404</h2>
+        </header>
+        <p>
+          The page you're trying to visit doesn't seem to exist… would you like to <a href="/">go home</a>, instead?
+        </p>
+      </article>
+    </main>
+  </body>
+</html>

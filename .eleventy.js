@@ -1,9 +1,10 @@
-const path = require('path');
+import {minify as minifyHtml} from 'html-minifier';
 
 const environment = {
-	production: (process.env.ELEVENTY_MODE || 'development') === 'production',
-	timestamp: Date.now(),
+	production: (process.env.ELEVENTY_RUN_MODE || 'development') === 'build',
 };
+
+const now = new Date();
 
 const options = {
 	browser: {
@@ -15,58 +16,51 @@ const options = {
 		decodeEntities: true,
 		removeComments: true,
 	},
-
-	sass: {
-		domainName: 'https://stuff.oscarpalmer.se',
-		outDir: path.normalize(path.join(__dirname, './build')),
-		outFileName: environment.production
-			? `styles.${environment.timestamp}`
-			: 'styles',
-		outPath: '/assets/stylesheets/',
-		outputStyle: environment.production ? 'compressed' : 'expanded',
-		sassIndexFile: 'styles.scss',
-		sassLocation: path.normalize(
-			path.join(__dirname, './source/assets/stylesheets/'),
-		),
-	},
 };
 
-module.exports = config => {
+export default (config) => {
+	config.addGlobalData(
+		'canonicalUrl',
+		environment.production ? 'https://stuff.oscarpalmer.se' : 'http://localhost:4567',
+	);
+
 	config.addGlobalData('production', environment.production);
 
-	if (environment.production) {
-		const html = require('html-minifier');
+	config.addGlobalData('timestamp', {
+		iso: now.toISOString(),
+		unix: now.getTime(),
+	});
 
+	config.addGlobalData('version', process.env.ELEVENTY_VERSION || '???');
+
+	config.addPassthroughCopy({
+		'source/assets/images': 'assets/images',
+		'source/assets/javascript': 'assets/javascript',
+		'source/robots.txt': 'robots.txt',
+	});
+
+	config.addWatchTarget('source');
+
+	config.setServerOptions(options.browser);
+
+	if (environment.production) {
 		config.addTransform('html', (content, path) => {
 			return path.endsWith('.html')
-				? html.minify(
-						content.replace(
-							'styles.css',
-							`styles.${environment.timestamp}.css`,
-						),
-						options.html,
-				  )
+				? minifyHtml(content, options.html)
 				: content;
 		});
 	}
 
-	config.addPassthroughCopy({
-		'source/.htaccess': '.htaccess',
-	});
-
-	config.addPlugin(require('eleventy-plugin-dart-sass'), options.sass);
-
-	config.setServerOptions(options.browser);
-
 	return {
 		dir: {
-			data: '../data',
+			data: '../../data',
+			includes: '../layouts/partials',
 			input: 'source/pages',
 			layouts: '../layouts',
 			output: 'build',
 		},
-		htmlTemplateEngine: 'njk',
-		markdownTemplateEngine: 'njk',
+		htmlTemplateEngine: 'liquid',
+		markdownTemplateEngine: 'liquid',
 		passthroughFileCopy: true,
 	};
 };
