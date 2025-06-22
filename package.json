@@ -1,6 +1,6 @@
 {
   "author": "Oscar Palmér",
-  "description": "Stuff, whatchamacallits, thingamajigs, and other cool things.",
+  "description": "Things I've made: utilities, demos, experiments, and other whatchamacallits.",
   "devDependencies": {
     "@11ty/eleventy": "^3.1",
 		"@biomejs/biome": "^1.9",
@@ -13,12 +13,12 @@
 		"sass": "^1.89"
   },
   "license": "MIT",
-  "homepage": "https://github.com/oscarpalmer/stuff.oscarpalmer.se",
-  "name": "stuff.oscarpalmer.se",
+  "homepage": "https://github.com/oscarpalmer/things.oscarpalmer.se",
+  "name": "things.oscarpalmer.se",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oscarpalmer/stuff.oscarpalmer.se.git"
+    "url": "git+https://github.com/oscarpalmer/things.oscarpalmer.se.git"
   },
   "scripts": {
     "build": "rm -rf ./build && npm run css:build && eleventy",

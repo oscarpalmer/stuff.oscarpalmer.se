@@ -1,6 +1,6 @@
-# [stuff.oscarpalmer.se](https://stuff.oscarpalmer.se)
+# [things.oscarpalmer.se](https://things.oscarpalmer.se)
 
-Stuff, whatchamacallits, thingamajigs, and other cool things.
+Things I've made: utilities, demos, experiments, and other whatchamacallits.
 
 ## License
 

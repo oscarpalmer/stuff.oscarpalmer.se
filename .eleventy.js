@@ -21,7 +21,7 @@ const options = {
 export default (config) => {
 	config.addGlobalData(
 		'canonicalUrl',
-		environment.production ? 'https://stuff.oscarpalmer.se' : 'http://localhost:4567',
+		environment.production ? 'https://things.oscarpalmer.se' : 'http://localhost:4567',
 	);
 
 	config.addGlobalData('production', environment.production);
